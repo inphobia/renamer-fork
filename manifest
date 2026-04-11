@@ -1,0 +1,16 @@
+id: renamer-fork
+name: renamer-fork
+metadata:
+  description: Renames scene files based on scene details and updates associated scenes
+    with a "Renamed" tag. forked.
+version: 0.14-devfork-e7c6b88
+date: "2026-03-30 11:18:25"
+requires: []
+source_repository: ''
+files:
+- README.md
+- requirements.txt
+- renamer-fork.py
+- rollback.py
+- renamer-fork.yml
+- renamer_settings.py
