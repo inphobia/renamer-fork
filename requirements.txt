@@ -1,0 +1,4 @@
+stashapp-tools
+python-json-logger
+unidecode
+emoji
