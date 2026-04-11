@@ -1,0 +1,19 @@
+name: renamer-fork
+description: Renames scene files based on scene details and updates associated scenes with a "Renamed" tag. forked.
+version: 0.14-dev
+url: ""
+exec:
+  - python
+  - "{pluginDir}/renamer-fork.py"
+interface: raw
+hooks:
+  - name: RenameFiles
+    description: Renames scene files and updates associated scenes.
+    triggeredBy:
+      - Scene.Update.Post
+tasks:
+  - name: Rename Files Task
+    description: Renames scene files and updates associated scenes.
+    defaultArgs:
+      mode: rename_files_task
+
