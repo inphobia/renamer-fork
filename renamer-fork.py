@@ -65,15 +65,10 @@ def fetch_stash_directories():
     return [Path(stash['path']) for stash in result['configuration']['general']['stashes']]
 
 def replace_illegal_characters(filename):
+    # still used by studio template
     illegal_chars = '<>:"/\\|?*“”‘’…'
     safe_chars = '_' * len(illegal_chars)
     transtable = str.maketrans(illegal_chars, safe_chars)
-    return filename.translate(transtable) if isinstance(filename, str) else filename
-
-def remove_illegal_characters(filename):
-#    illegal_chars = '`´@<>=$:"%/|!?*&,#“”‘’…–\\\''
-    illegal_chars = '`´@<>=$:"%/|!?*&,#\\\''
-    transtable = str.maketrans("", "", illegal_chars)
     return filename.translate(transtable) if isinstance(filename, str) else filename
 
 def give_sane_string(filename: str) -> str:
@@ -81,7 +76,7 @@ def give_sane_string(filename: str) -> str:
         return filename
     filename = emoji.replace_emoji(filename, replace='')
     filename = unidecode(filename)
-    # 3. Remove any remaining control characters and zero-width spaces
+    # remove any remaining control characters and zero-width spaces
     filename = re.sub(r'[\x00-\x1F\x7F\u200B\u200C\u200D\uFEFF]', '', filename)
     illegal_chars = '`´@<>=$:"%/|!?*&,#\\\''
     transtable = str.maketrans("", "", illegal_chars)
@@ -306,7 +301,6 @@ def form_new_filename(scene):
             value = give_sane_string(value) if isinstance(value, str) else value
             value = apply_regex_transformations(value, key) if isinstance(value, str) else value
             value = value[:80].strip()
-#            value = ' '.join(value[:28].split())
             wrapper = config['wrapper_styles'].get(key, ('', ''))
             part = f"{wrapper[0]}{value}{wrapper[1]}"
             parts.append(part)
