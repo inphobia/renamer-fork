@@ -1,15 +1,37 @@
 # renamer-fork:
 
-### Requirements
+## Requirements
+python 3.13
+```
+pip install stashapp-tools
+pip install python-json-logger
+pip install unidecode
+pip install emoji
+```
 
-`pip install stashapp-tools`
-`pip install python-json-logger`
-`pip install unidecode`
-`pip install emoji`
+## about renamer-fork
+this is a fork of `renamer-dev` by https://github.com/Serechops/Serechops-Stash
+
+## differences
+
+### features gained
+- strips even more punctuation marks by default
+- removes all emoji from filename
+- runs the string through unidecode so it's mostly ascii
+- also gets rid of zero width unicode chars and other such nonsense
+- also fetches a scene's studio code to be used as a key
+- limits the maximum length per key
+
+### features lost
+- adding tags to renamed files
+- support for studio_templates (code is still there using old codepath)
+
+### features wishlist
+- take favorites into account when sorting keys with multiple options, like tags or performer
+- invoke rename from ui instead scene.update.post()
 
 
-
-### Using renamer-fork
+## Using renamer-fork
 `*Note: All changes are made when a Scene is updated and saved. Start small, make sure you get the changes you want in place first, then Rename away!`
 
 When you have installed the `renamer-fork` plugin, hop into your plugins directory, Renamer folder > open renamer_settings.py with your favorite code/text editor and you'll see this:
@@ -23,25 +45,24 @@ config = {
     "log_path": "./renamer.log",  # Path to log file
     "default_move_path": r"C:\No Studio",  # Default path for moving files
     "wrapper_styles": {
-        "studio": ('{', '}'),
-        "title": ('(', ')'),
-        "performers": ('[', ']'),
-        "date": ('[', ']'),
+        "studio": ('', ''),
+        "title": ('', ''),
+        "performers": ('', ''),
+        "date": ('', ''),
         "height": ('[', ']'),
         "video_codec": ('[', ']'),
         "frame_rate": ('[', ']'),
-        "tag": ('[', ']')
+        "tag": ('[', ']'),
+        "stash_id": ('[', ']'),
+        "code": ('[', ']'),
     },
-    "separator": '-',  # Separator used in filenames
+    "separator": '_',  # Separator used in filenames
     "key_order": [
-        "studio",
-        "title",
-        "performers",
         "date",
-        "height",
-        "video_codec",
-        "frame_rate",
-        "tags"
+        "performers",
+        "title",
+        "code",
+        "video_codec"
     ],
     "exclude_keys": ["height", "frame_rate"],  # Keys to exclude from filename formation
     "move_files": True,  # Enable moving of files
@@ -50,6 +71,7 @@ config = {
     "max_tag_keys": 5,  # Maximum number of tag keys in filename
     "tag_whitelist": [],  # List of tags to include in filename
     "exclude_paths": [],  # Paths to exclude from processing
+    "stashbox_endpoints": ["https://stashdb.org/graphql"],
     "tag_specific_paths": {
         "Movie": r"E:\Movies"  # Specific paths based on tags
     },
@@ -60,14 +82,14 @@ config = {
             "replacement": lambda match: match.group().upper()  # Transform to uppercase
         },
         "all_lowercase": {  # Transforms text to lowercase
-            "fields": ["tags"],  # Specify fields to transform
+            "fields": ["title"],  # Specify fields to transform
             "pattern": ".*",  # Match any text
             "replacement": lambda match: match.group().lower()  # Transform to lowercase
         }
     },
-    "associated_files": ["srt", "vtt", "jpg", "png"],  # File extensions of associated files to rename
+    "associated_files": ["srt", "vtt", "jpg", "png", "webp"],  # File extensions of associated files to rename
     "performer_sort": "name",  # Sort performers by name
-    "performer_limit": 3,  # Limit number of performers listed in filename
+    "performer_limit": 2,  # Limit number of performers listed in filename
     "date_format": "%Y-%m-%d",  # Date format in filenames
     "studio_templates": {
         "1By-Day": "$studio - $date - $performers - $title"
@@ -85,7 +107,7 @@ This settings file (`renamer_settings.py`) controls the behavior of the Renamer 
 
 The `config` dictionary contains various settings that influence how the Renamer script operates. Here are the available configuration options:
 
-- `wrapper_styles`: Wrapper style defines what brackets, if any, to use around each key value. Where available brackets are '{}', '[]', '()', or none.
+- `wrapper_styles`: Wrapper style defines what brackets, if any, to use around each key value. Where available brackets are '{}', '[]', '()', or '' for none.
 - `separator`: Define the separator to use between different parts of the filename.
 - `key_order`: Define the order of keys in the filename.
 - `exclude_keys`: Specify keys to exclude from the formed filename.
