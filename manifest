@@ -1,10 +1,10 @@
 id: renamer-fork
 name: renamer-fork
 metadata:
-  description: Renames scene files based on scene details and updates associated scenes
-    with a "Renamed" tag. forked.
+  description: forked version of renamer-dev to clear out most non ascii chars
+    in filenames.
 version: 0.14-devfork-e7c6b88
-date: "2026-03-30 11:18:25"
+date: "2026-04-26 11:18:25"
 requires: []
 source_repository: ''
 files:
