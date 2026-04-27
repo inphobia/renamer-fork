@@ -32,9 +32,11 @@ this is a fork of `renamer-dev` by https://github.com/Serechops/Serechops-Stash
 
 
 ## Using renamer-fork
-`*Note: All changes are made when a Scene is updated and saved. Start small, make sure you get the changes you want in place first, then Rename away!`
+`*note: All changes are made when a Scene is updated and saved. Start small, make sure you get the changes you want in place first, then Rename away!`
 
-When you have installed the `renamer-fork` plugin, hop into your plugins directory, Renamer folder > open renamer_settings.py with your favorite code/text editor and you'll see this:
+`*note: renamer-fork does not write to sqlite. when a file is renamed you'll need run a new scan so stash can update it's data`
+
+When you have installed the `renamer-fork` plugin, hop into your plugins directory, renamer-fork folder > open renamer_settings.py with your favorite code/text editor and you'll see this:
 
 ```
 # Importing config dictionary
@@ -99,7 +101,7 @@ config = {
 
 # Renamer Settings File
 
-This settings file (`renamer_settings.py`) controls the behavior of the Renamer script. Follow the instructions below to properly modify the settings file according to your preferences.
+This settings file (`renamer_settings.py`) controls the behavior of the renamer-fork script. Follow the instructions below to properly modify the settings file according to your preferences.
 
 ## Configuration Options
 
@@ -145,8 +147,6 @@ Modify the boolean values of `move_files`, `rename_files`, and `dry_run` to cont
 
 Specify custom paths that you would like untouched by Renamer. 
 
-# Rollback.py
+# Rollback.py - not supported in renamer-fork
 
-This is an experimental script whereby it will target your `Renamer.json` external log. 
-
-Run this script using `python Rollback.py` then supply it a scene ID that you would like to revert to its original location(s). When a scene ID is given, if it exists in the external `Renamer.json` log, it will indicate timestamps and original directories for that scene. Simply select an item `1. 2. 3. ...etc.` and the file will be renamed and moved back to its original directory. Think of this as a "snapshot" if there was ever a time you wanted to go back and change where a file should be moved or how it should be named.
+renamer-fork does create a `renamer.json` file listing all renaming actions taken.

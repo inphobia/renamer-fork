@@ -1,5 +1,5 @@
 name: renamer-fork
-description: Renames scene files based on scene details and updates associated scenes with a "Renamed" tag. forked.
+description: renames scene files based on scene details while cleaning emoji and unicode.
 version: 0.14-dev
 url: ""
 exec:
