@@ -9,6 +9,7 @@ requires: []
 source_repository: ''
 files:
 - README.md
+- LICENSE
 - requirements.txt
 - renamer-fork.py
 - rollback.py
